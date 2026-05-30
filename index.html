@@ -1,0 +1,1115 @@
+<!DOCTYPE html>
+<!-- saved from url=(0045)file:///C:/Users/pedro/Downloads/index_4.html -->
+<html lang="pt"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Biblioteca">
+<meta name="theme-color" content="#FAF7F2">
+<title>Minha Biblioteca</title>
+<link rel="stylesheet" href="./index_files/tabler-icons.min.css">
+<link href="./index_files/css2" rel="stylesheet">
+<script src="./index_files/index.min.js.transferir"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+:root{
+  --cream:#FAF7F2;--paper:#F3EDE3;--ink:#1C1812;--ink2:#4A4035;--ink3:#8C7E6E;
+  --amber:#C8822A;--amber-light:#F5E6C8;--green:#3A6B4A;--green-light:#D4EAD8;
+  --red:#A83B2A;--red-light:#F5D5D0;--border:rgba(28,24,18,0.1);
+  --font-display:'Playfair Display',Georgia,serif;--font-body:'DM Sans',system-ui,sans-serif;
+  --safe-bottom:env(safe-area-inset-bottom,0px);--safe-top:env(safe-area-inset-top,0px);
+}
+html,body{height:100%;width:100%;background:var(--cream);font-family:var(--font-body);overflow:hidden;-webkit-font-smoothing:antialiased}
+.app{display:flex;flex-direction:column;height:100vh;width:100%;max-width:430px;margin:0 auto;background:var(--cream);overflow:hidden;position:relative}
+.status-bar{height:calc(44px + var(--safe-top));padding-top:var(--safe-top);display:flex;align-items:center;justify-content:space-between;padding-left:20px;padding-right:20px;font-size:12px;font-weight:500;color:var(--ink);background:var(--cream);flex-shrink:0}
+.header{padding:4px 20px 14px;background:var(--cream);border-bottom:1px solid var(--border);flex-shrink:0}
+.header-title{font-family:var(--font-display);font-size:26px;color:var(--ink);line-height:1.1}
+.header-title span{color:var(--amber);font-style:italic}
+.header-sub{font-size:12px;color:var(--ink3);margin-top:2px}
+.stats-row{display:flex;gap:8px;padding:14px 20px;overflow-x:auto;scrollbar-width:none;flex-shrink:0}
+.stats-row::-webkit-scrollbar{display:none}
+.stat-pill{flex-shrink:0;display:flex;flex-direction:column;align-items:center;padding:10px 14px;border-radius:14px;min-width:72px;border:1px solid var(--border);cursor:pointer;transition:opacity .15s}
+.stat-pill:active{opacity:.75}
+.stat-pill.all{background:var(--ink);color:#fff}
+.stat-pill.reading{background:var(--amber-light);color:var(--amber)}
+.stat-pill.done{background:var(--green-light);color:var(--green)}
+.stat-pill.unread{background:var(--paper);color:var(--ink2)}
+.stat-num{font-size:20px;font-weight:500;line-height:1}
+.stat-lbl{font-size:10px;margin-top:3px;opacity:.8;white-space:nowrap}
+.section-header{display:flex;justify-content:space-between;align-items:center;padding:12px 20px 8px;flex-shrink:0}
+.section-title{font-family:var(--font-display);font-size:16px;color:var(--ink)}
+.section-action{font-size:12px;color:var(--amber);font-weight:500;cursor:pointer;padding:4px 8px}
+.scroll-area{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;padding-bottom:calc(80px + var(--safe-bottom));scrollbar-width:none}
+.scroll-area::-webkit-scrollbar{display:none}
+.book-list{padding:0 20px;display:flex;flex-direction:column;gap:12px}
+.book-card{background:#fff;border-radius:16px;border:1px solid var(--border);display:flex;gap:12px;padding:12px;cursor:pointer;transition:transform .15s}
+.book-card:active{transform:scale(.97)}
+.book-cover{width:58px;height:82px;border-radius:8px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:26px;position:relative;overflow:hidden}
+.book-cover img{width:100%;height:100%;object-fit:cover;border-radius:8px;display:block}
+.book-cover-spine{position:absolute;left:0;top:0;bottom:0;width:6px;border-radius:8px 0 0 8px;opacity:.7}
+.book-info{flex:1;min-width:0;display:flex;flex-direction:column;justify-content:space-between}
+.book-title{font-family:var(--font-display);font-size:14px;color:var(--ink);font-weight:600;line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.book-author{font-size:11px;color:var(--ink3);margin-top:2px}
+.book-status{font-size:10px;padding:3px 8px;border-radius:20px;font-weight:500;display:inline-block;margin-top:6px}
+.status-reading{background:var(--amber-light);color:var(--amber)}
+.status-done{background:var(--green-light);color:var(--green)}
+.status-unread{background:var(--paper);color:var(--ink3)}
+.progress-wrap{margin-top:6px}
+.progress-bar{height:4px;background:var(--paper);border-radius:4px;overflow:hidden}
+.progress-fill{height:100%;border-radius:4px;transition:width .4s ease}
+.progress-fill.reading{background:var(--amber)}
+.progress-fill.done{background:var(--green)}
+.progress-label{font-size:10px;color:var(--ink3);margin-top:3px}
+.book-pages{font-size:10px;color:var(--ink3);margin-top:6px}
+.empty-state{text-align:center;padding:48px 20px;color:var(--ink3)}
+.empty-state i{font-size:52px;margin-bottom:12px;display:block}
+.empty-state p{font-size:14px;line-height:1.6}
+.fab{position:fixed;bottom:calc(68px + var(--safe-bottom));right:20px;width:52px;height:52px;border-radius:50%;background:var(--ink);color:#fff;border:none;font-size:24px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(28,24,18,.3);transition:transform .15s;z-index:50}
+.fab:active{transform:scale(.92)}
+.tab-bar{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;background:rgba(250,247,242,.97);border-top:1px solid var(--border);display:flex;padding-top:8px;padding-bottom:calc(8px + var(--safe-bottom));z-index:40;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;font-size:10px;color:var(--ink3);padding:2px 0;transition:color .15s}
+.tab.active{color:var(--amber)}
+.tab i{font-size:22px}
+.toast{position:fixed;top:calc(56px + var(--safe-top));left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 20px;border-radius:20px;font-size:13px;z-index:400;white-space:nowrap;pointer-events:none;opacity:0;transition:opacity .3s;max-width:90vw;text-align:center}
+.toast.show{opacity:1}
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(28,24,18,.55);z-index:100;align-items:flex-end;justify-content:center}
+.modal-bg.open{display:flex}
+.modal{background:var(--cream);border-radius:28px 28px 0 0;padding:16px 20px calc(28px + var(--safe-bottom));width:100%;max-width:430px;max-height:90vh;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;animation:slideUp .3s cubic-bezier(.32,.72,0,1);position:relative;scrollbar-width:none}
+.modal::-webkit-scrollbar{display:none}
+@keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.modal-handle{width:36px;height:4px;background:var(--border);border-radius:4px;margin:0 auto 16px}
+.modal-close{position:absolute;right:16px;top:16px;background:var(--paper);border:none;width:30px;height:30px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;color:var(--ink2);z-index:10}
+.modal-title{font-family:var(--font-display);font-size:18px;color:var(--ink);margin-bottom:16px;padding-right:36px}
+
+/* CAMERA / SCANNER */
+.camera-container{position:relative;width:100%;border-radius:16px;overflow:hidden;background:#000;margin-bottom:14px}
+.camera-container video{width:100%;display:block;border-radius:16px}
+.camera-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none}
+.scan-frame{width:70%;aspect-ratio:1.6;border:2px solid rgba(255,255,255,.3);border-radius:8px;position:relative}
+.scan-corner{position:absolute;width:20px;height:20px;border-color:var(--amber);border-style:solid}
+.sc-tl{top:-1px;left:-1px;border-width:3px 0 0 3px;border-radius:4px 0 0 0}
+.sc-tr{top:-1px;right:-1px;border-width:3px 3px 0 0;border-radius:0 4px 0 0}
+.sc-bl{bottom:-1px;left:-1px;border-width:0 0 3px 3px;border-radius:0 0 0 4px}
+.sc-br{bottom:-1px;right:-1px;border-width:0 3px 3px 0;border-radius:0 0 4px 0}
+.scan-line-live{position:absolute;left:0;right:0;height:2px;background:var(--amber);border-radius:2px;animation:scanAnim 2s ease-in-out infinite}
+@keyframes scanAnim{0%,100%{top:10%;opacity:1}50%{top:88%;opacity:.6}}
+.camera-status{text-align:center;font-size:12px;color:rgba(255,255,255,.7);padding:8px;background:rgba(0,0,0,.5);position:absolute;bottom:0;left:0;right:0;border-radius:0 0 16px 16px}
+
+/* CAMERA PHOTO */
+.photo-camera-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:13px;border-radius:12px;background:var(--ink);color:#fff;border:none;font-family:var(--font-body);font-size:14px;font-weight:500;cursor:pointer;margin-bottom:10px}
+.photo-camera-btn:active{opacity:.8}
+.photo-camera-preview{position:fixed;inset:0;background:#000;z-index:300;display:none;flex-direction:column}
+.photo-camera-preview.open{display:flex}
+.photo-camera-preview video{flex:1;object-fit:cover;width:100%}
+.camera-shutter-bar{display:flex;align-items:center;justify-content:center;gap:24px;padding:20px 20px calc(20px + var(--safe-bottom));background:#000}
+.shutter-btn{width:72px;height:72px;border-radius:50%;background:#fff;border:4px solid rgba(255,255,255,.4);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:28px}
+.shutter-btn:active{transform:scale(.93)}
+.shutter-cancel{color:#fff;font-size:14px;cursor:pointer;padding:10px;min-width:60px;text-align:center}
+.shutter-flip{color:#fff;font-size:24px;cursor:pointer;padding:10px;min-width:60px;text-align:center;display:flex;align-items:center;justify-content:center}
+
+/* FORMS */
+.input-group{margin-bottom:12px}
+.input-label{font-size:12px;color:var(--ink3);margin-bottom:5px}
+input[type=text],input[type=number],select,textarea{width:100%;padding:11px 13px;border-radius:10px;border:1px solid var(--border);background:#fff;font-family:var(--font-body);font-size:15px;color:var(--ink);outline:none;-webkit-appearance:none;appearance:none}
+input:focus,select:focus,textarea:focus{border-color:var(--amber)}
+input[type=range]{width:100%;accent-color:var(--amber);margin:4px 0}
+.row2{display:flex;gap:10px}
+.row2 .input-group{flex:1}
+.form-tabs{display:flex;gap:0;margin-bottom:12px;border-radius:10px;overflow:hidden;border:1px solid var(--border)}
+.form-tab{flex:1;padding:9px;text-align:center;font-size:13px;cursor:pointer;color:var(--ink3);background:#fff;transition:background .15s,color .15s}
+.form-tab.active{background:var(--ink);color:#fff}
+
+/* PHOTO */
+.photo-upload-area{border:2px dashed var(--border);border-radius:14px;padding:16px;text-align:center;cursor:pointer;background:#fff;position:relative;margin-bottom:4px}
+.photo-upload-area input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.photo-upload-area i{font-size:28px;color:var(--ink3);display:block;margin-bottom:6px}
+.photo-upload-area .upload-text{font-size:13px;color:var(--ink3)}
+.photo-upload-area .upload-hint{font-size:11px;color:var(--ink3);margin-top:3px;opacity:.7}
+.photo-strip{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.photo-thumb{width:60px;height:84px;border-radius:8px;overflow:hidden;position:relative;border:2px solid transparent;cursor:pointer;flex-shrink:0}
+.photo-thumb img{width:100%;height:100%;object-fit:cover}
+.photo-thumb.selected{border-color:var(--amber)}
+.photo-thumb .remove-photo{position:absolute;top:2px;right:2px;width:18px;height:18px;background:rgba(28,24,18,.75);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;color:#fff}
+.photo-thumb .primary-badge{position:absolute;bottom:2px;left:2px;right:2px;background:rgba(200,130,42,.9);color:#fff;font-size:9px;text-align:center;border-radius:3px;padding:1px 0}
+.cover-picker{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+.cover-opt{width:46px;height:64px;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:24px;border:2px solid transparent;transition:border-color .15s,transform .15s}
+.cover-opt.selected{border-color:var(--amber);transform:scale(1.08)}
+.color-swatch{width:30px;height:30px;border-radius:50%;cursor:pointer;border:2px solid transparent;transition:border-color .15s,transform .15s}
+.color-swatch.selected{border-color:var(--amber);transform:scale(1.1)}
+
+/* ISBN RESULT */
+.isbn-result-card{background:#fff;border-radius:16px;border:1px solid var(--border);overflow:hidden;margin-bottom:14px}
+.isbn-result-cover{width:100%;height:160px;object-fit:cover;display:block}
+.isbn-result-cover-placeholder{width:100%;height:120px;display:flex;align-items:center;justify-content:center;font-size:48px;background:var(--paper)}
+.isbn-result-body{padding:14px}
+.isbn-result-title{font-family:var(--font-display);font-size:17px;color:var(--ink);margin-bottom:4px;line-height:1.3}
+.isbn-result-author{font-size:13px;color:var(--ink3);margin-bottom:8px}
+.isbn-result-desc{font-size:12px;color:var(--ink2);line-height:1.6;margin-bottom:10px}
+.isbn-result-chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:2px}
+.isbn-chip{font-size:11px;padding:3px 10px;border-radius:20px;background:var(--paper);color:var(--ink3)}
+
+/* BUTTONS */
+.btn-row{display:flex;gap:8px;margin-top:8px}
+.btn{flex:1;padding:13px;border-radius:12px;border:none;cursor:pointer;font-family:var(--font-body);font-size:14px;font-weight:500;transition:opacity .15s,transform .1s}
+.btn:active{opacity:.8;transform:scale(.98)}
+.btn-primary{background:var(--ink);color:#fff}
+.btn-secondary{background:var(--paper);color:var(--ink);border:1px solid var(--border)}
+.btn-danger{background:var(--red-light);color:var(--red)}
+.btn-full{width:100%;display:block;text-align:center}
+
+/* DETAIL */
+.detail-header{display:flex;gap:16px;margin-bottom:16px}
+.detail-cover{width:90px;height:128px;border-radius:12px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:38px;position:relative;overflow:hidden}
+.detail-cover img{width:100%;height:100%;object-fit:cover;border-radius:12px}
+.detail-spine{position:absolute;left:0;top:0;bottom:0;width:9px;border-radius:12px 0 0 12px;opacity:.7}
+.detail-title{font-family:var(--font-display);font-size:18px;color:var(--ink);line-height:1.3;margin-bottom:4px}
+.detail-author{font-size:13px;color:var(--ink3);margin-bottom:10px}
+.detail-desc{font-size:13px;color:var(--ink2);line-height:1.65;margin-bottom:16px;background:var(--paper);padding:12px;border-radius:10px}
+.detail-meta{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:4px}
+.photo-gallery{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;margin-bottom:16px;padding-bottom:4px}
+.photo-gallery::-webkit-scrollbar{display:none}
+.gallery-img{width:80px;height:112px;border-radius:10px;object-fit:cover;flex-shrink:0;cursor:pointer;border:2px solid transparent;transition:border-color .15s}
+.gallery-img.main-cover{border-color:var(--amber)}
+.lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:500;align-items:center;justify-content:center}
+.lightbox.open{display:flex}
+.lightbox img{max-width:92vw;max-height:85vh;border-radius:12px;object-fit:contain}
+.lightbox-close{position:absolute;top:calc(16px + var(--safe-top));right:16px;background:rgba(255,255,255,.15);border:none;width:36px;height:36px;border-radius:50%;color:#fff;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
+.stat-card{border-radius:14px;padding:14px;text-align:center}
+.stat-card-num{font-size:28px;font-weight:500;line-height:1}
+.stat-card-lbl{font-size:11px;margin-top:4px}
+.stat-card.total{background:var(--paper);color:var(--ink2)}
+.stat-card.read{background:var(--green-light);color:var(--green)}
+.stat-card.inprogress{background:var(--amber-light);color:var(--amber)}
+
+/* LOADING SPINNER */
+.spinner{display:inline-block;width:20px;height:20px;border:2px solid rgba(200,130,42,.3);border-top-color:var(--amber);border-radius:50%;animation:spin .7s linear infinite;vertical-align:-5px}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* MANUAL ISBN input */
+.isbn-manual-row{display:flex;gap:8px;margin-bottom:10px}
+.isbn-manual-row input{flex:1}
+</style>
+</head>
+<body>
+
+<div class="app">
+  <div class="status-bar">
+    <span id="clock">21:21</span>
+    <span style="display:flex;gap:5px;align-items:center">
+      <i class="ti ti-wifi" style="font-size:14px"></i>
+      <i class="ti ti-battery-2" style="font-size:14px"></i>
+    </span>
+  </div>
+  <div class="header">
+    <div class="header-title">Minha <span>Biblioteca</span></div>
+    <div class="header-sub" id="header-sub">3 livros na coleção</div>
+  </div>
+  <div class="stats-row">
+    <div class="stat-pill all" onclick="setFilter(&#39;all&#39;)"><span class="stat-num" id="cnt-all">3</span><span class="stat-lbl">Todos</span></div>
+    <div class="stat-pill reading" onclick="setFilter(&#39;reading&#39;)"><span class="stat-num" id="cnt-reading">1</span><span class="stat-lbl">A ler</span></div>
+    <div class="stat-pill done" onclick="setFilter(&#39;done&#39;)"><span class="stat-num" id="cnt-done">1</span><span class="stat-lbl">Lidos</span></div>
+    <div class="stat-pill unread" onclick="setFilter(&#39;unread&#39;)"><span class="stat-num" id="cnt-unread">1</span><span class="stat-lbl">Por ler</span></div>
+  </div>
+  <div class="section-header">
+    <div class="section-title" id="section-label">Coleção</div>
+    <div class="section-action" onclick="sortToggle()">Ordenar ↕</div>
+  </div>
+  <div class="scroll-area">
+    <div class="book-list" id="book-list"><div class="book-card" onclick="openDetail(1)">
+      <div class="book-cover" style=" background:#EEE0FF">
+        <div class="book-cover-spine" style="background:#7B5EA7"></div>🔮
+      </div>
+      <div class="book-info">
+        <div>
+          <div class="book-title">O Nome da Rosa</div>
+          <div class="book-author">Umberto Eco</div>
+          <span class="book-status status-reading">A ler</span>
+          
+          
+        </div>
+        <div>
+          <div class="progress-wrap"><div class="progress-bar"><div class="progress-fill reading" style="width:64%"></div></div><div class="progress-label">64% · pág. 320 / 502</div></div>
+        </div>
+      </div>
+    </div><div class="book-card" onclick="openDetail(2)">
+      <div class="book-cover" style=" background:#E0F0FF">
+        <div class="book-cover-spine" style="background:#3A7BBF"></div>🌊
+      </div>
+      <div class="book-info">
+        <div>
+          <div class="book-title">Ensaio sobre a Cegueira</div>
+          <div class="book-author">José Saramago</div>
+          <span class="book-status status-done">Lido</span>
+          <span style="font-size:10px;color:var(--ink3);margin-left:6px">× 2</span>
+          
+        </div>
+        <div>
+          <div class="progress-wrap"><div class="progress-bar"><div class="progress-fill done" style="width:100%"></div></div><div class="progress-label">100% · pág. 310 / 310</div></div>
+        </div>
+      </div>
+    </div><div class="book-card" onclick="openDetail(3)">
+      <div class="book-cover" style=" background:#E0F5E8">
+        <div class="book-cover-spine" style="background:#3A6B4A"></div>🌿
+      </div>
+      <div class="book-info">
+        <div>
+          <div class="book-title">Cem Anos de Solidão</div>
+          <div class="book-author">Gabriel García Márquez</div>
+          <span class="book-status status-unread">Por ler</span>
+          
+          
+        </div>
+        <div>
+          <div class="book-pages">448 pág.</div>
+        </div>
+      </div>
+    </div></div>
+  </div>
+  <button class="fab" onclick="openAdd()" aria-label="Adicionar livro"><i class="ti ti-plus"></i></button>
+  <div class="tab-bar">
+    <div class="tab active" id="tab-library" onclick="switchTab(&#39;library&#39;)"><i class="ti ti-books"></i><span>Biblioteca</span></div>
+    <div class="tab" id="tab-scanner" onclick="switchTab(&#39;scanner&#39;)"><i class="ti ti-barcode"></i><span>Scanner</span></div>
+    <div class="tab" id="tab-stats" onclick="switchTab(&#39;stats&#39;)"><i class="ti ti-chart-bar"></i><span>Estatísticas</span></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <button class="lightbox-close"><i class="ti ti-x"></i></button>
+  <img id="lightbox-img" src="file:///C:/Users/pedro/Downloads/index_4.html" alt="">
+</div>
+
+<!-- CAMERA PHOTO CAPTURE OVERLAY -->
+<div class="photo-camera-preview" id="camera-capture">
+  <video id="capture-video" autoplay="" playsinline="" muted="" style="flex:1;object-fit:cover;width:100%"></video>
+  <canvas id="capture-canvas" style="display:none"></canvas>
+  <div class="camera-shutter-bar">
+    <div class="shutter-cancel" onclick="closeCameraCapture()">Cancelar</div>
+    <button class="shutter-btn" onclick="takePhoto()">📷</button>
+    <div class="shutter-flip" onclick="flipCamera()"><i class="ti ti-flip-horizontal"></i></div>
+  </div>
+</div>
+
+<!-- SCANNER MODAL -->
+<div class="modal-bg" id="scanner-modal">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <button class="modal-close" onclick="closeScanner()"><i class="ti ti-x"></i></button>
+    <div class="modal-title">Pesquisar Livro</div>
+
+    <!-- Live camera scanner -->
+    <div class="camera-container" id="scanner-camera-wrap" style="display:none">
+      <video id="scanner-video" autoplay="" playsinline="" muted="" style="width:100%;border-radius:16px;display:block;max-height:220px;object-fit:cover"></video>
+      <div class="camera-overlay">
+        <div class="scan-frame">
+          <div class="scan-corner sc-tl"></div><div class="scan-corner sc-tr"></div>
+          <div class="scan-corner sc-bl"></div><div class="scan-corner sc-br"></div>
+          <div class="scan-line-live"></div>
+        </div>
+      </div>
+      <div class="camera-status" id="scanner-status">A iniciar câmara...</div>
+    </div>
+
+    <button class="photo-camera-btn" id="start-scan-btn" onclick="startLiveScanner()" style="background:var(--ink)">
+      <i class="ti ti-camera"></i> Usar câmara para ler código de barras
+    </button>
+
+    <div style="display:flex;align-items:center;gap:10px;margin:2px 0 12px">
+      <div style="flex:1;height:1px;background:var(--border)"></div>
+      <span style="font-size:12px;color:var(--ink3)">ou ISBN manual</span>
+      <div style="flex:1;height:1px;background:var(--border)"></div>
+    </div>
+
+    <div class="isbn-manual-row">
+      <input type="text" id="isbn-input" placeholder="Ex: 9789722060271" inputmode="numeric">
+      <button class="btn btn-primary" style="flex:0 0 auto;padding:11px 16px" onclick="searchByISBN(document.getElementById(&#39;isbn-input&#39;).value)">
+        <i class="ti ti-search"></i>
+      </button>
+    </div>
+
+    <div id="isbn-result"></div>
+
+    <div style="margin-top:8px">
+      <div style="font-size:11px;color:var(--ink3);margin-bottom:8px;text-align:center">Exemplos para testar:</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+        <button class="btn btn-secondary" style="font-size:12px;padding:10px 8px" onclick="searchByISBN(&#39;9789722060271&#39;)">📜 Fernando Pessoa</button>
+        <button class="btn btn-secondary" style="font-size:12px;padding:10px 8px" onclick="searchByISBN(&#39;9780061965081&#39;)">🌿 Harper Lee</button>
+        <button class="btn btn-secondary" style="font-size:12px;padding:10px 8px" onclick="searchByISBN(&#39;9780743273565&#39;)">🎭 Fitzgerald</button>
+        <button class="btn btn-secondary" style="font-size:12px;padding:10px 8px" onclick="searchByISBN(&#39;9780307474278&#39;)">🔬 Dan Brown</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ADD / EDIT MODAL -->
+<div class="modal-bg" id="add-modal">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <button class="modal-close" onclick="closeModal(&#39;add-modal&#39;)"><i class="ti ti-x"></i></button>
+    <div class="modal-title" id="add-modal-title">Adicionar Livro</div>
+    <input type="hidden" id="edit-id" value="">
+
+    <div class="input-group">
+      <div class="input-label">Título *</div>
+      <input type="text" id="f-title" placeholder="Título do livro">
+    </div>
+    <div class="input-group">
+      <div class="input-label">Autor</div>
+      <input type="text" id="f-author" placeholder="Nome do autor">
+    </div>
+    <div class="input-group">
+      <div class="input-label">Descrição / Sinopse</div>
+      <textarea id="f-desc" placeholder="Breve descrição ou tema do livro" rows="3" style="resize:none"></textarea>
+    </div>
+    <div class="row2">
+      <div class="input-group">
+        <div class="input-label">Nº de páginas</div>
+        <input type="number" id="f-pages" placeholder="300" min="1" inputmode="numeric">
+      </div>
+      <div class="input-group">
+        <div class="input-label">Exemplares</div>
+        <input type="number" id="f-stock" placeholder="1" min="1" value="1" inputmode="numeric">
+      </div>
+    </div>
+    <div class="input-group">
+      <div class="input-label">Estado</div>
+      <select id="f-status" onchange="toggleProgressRow()">
+        <option value="unread">📋 Por ler</option>
+        <option value="reading">📖 A ler</option>
+        <option value="done">✅ Lido</option>
+      </select>
+    </div>
+    <div class="input-group" id="progress-row" style="display:none">
+      <div class="input-label">Página actual</div>
+      <input type="number" id="f-page-current" placeholder="0" min="0" inputmode="numeric">
+    </div>
+
+    <!-- COVER -->
+    <div class="input-group">
+      <div class="input-label">Capa do livro</div>
+      <div class="form-tabs">
+        <div class="form-tab active" id="tab-photo" onclick="switchCoverTab(&#39;photo&#39;)"><i class="ti ti-camera" style="font-size:14px;vertical-align:-2px"></i> Fotos</div>
+        <div class="form-tab" id="tab-emoji" onclick="switchCoverTab(&#39;emoji&#39;)"><i class="ti ti-mood-happy" style="font-size:14px;vertical-align:-2px"></i> Ícone</div>
+      </div>
+      <div id="cover-photo-section">
+        <button class="photo-camera-btn" onclick="openCameraCapture()">
+          <i class="ti ti-camera"></i> Tirar foto com a câmara
+        </button>
+        <div class="photo-upload-area">
+          <input type="file" id="photo-input" accept="image/*" multiple="" onchange="handlePhotoUpload(event)">
+          <i class="ti ti-photo-plus"></i>
+          <div class="upload-text">Ou toca para escolher da galeria</div>
+          <div class="upload-hint">Várias fotos aceites</div>
+        </div>
+        <div class="photo-strip" id="photo-strip"></div>
+        <div style="font-size:11px;color:var(--ink3);margin-top:6px;display:none" id="photo-hint">Toca numa foto para definir como capa principal</div>
+      </div>
+      <div id="cover-emoji-section" style="display:none">
+        <div class="cover-picker" id="cover-picker">
+          <div class="cover-opt selected" data-emoji="📚" style="background:#FAF0E6" onclick="pickEmoji(this)">📚</div>
+          <div class="cover-opt" data-emoji="🔮" style="background:#EEE0FF" onclick="pickEmoji(this)">🔮</div>
+          <div class="cover-opt" data-emoji="🌊" style="background:#E0F0FF" onclick="pickEmoji(this)">🌊</div>
+          <div class="cover-opt" data-emoji="🌿" style="background:#E0F5E8" onclick="pickEmoji(this)">🌿</div>
+          <div class="cover-opt" data-emoji="🏔️" style="background:#EEF2F5" onclick="pickEmoji(this)">🏔️</div>
+          <div class="cover-opt" data-emoji="🔬" style="background:#FFF0E0" onclick="pickEmoji(this)">🔬</div>
+          <div class="cover-opt" data-emoji="⚔️" style="background:#F5E8E0" onclick="pickEmoji(this)">⚔️</div>
+          <div class="cover-opt" data-emoji="🎭" style="background:#FFE8F0" onclick="pickEmoji(this)">🎭</div>
+          <div class="cover-opt" data-emoji="🚀" style="background:#E0E8FF" onclick="pickEmoji(this)">🚀</div>
+          <div class="cover-opt" data-emoji="🐉" style="background:#FFF0E8" onclick="pickEmoji(this)">🐉</div>
+          <div class="cover-opt" data-emoji="🧠" style="background:#F0E8FF" onclick="pickEmoji(this)">🧠</div>
+          <div class="cover-opt" data-emoji="🌺" style="background:#FFE8F5" onclick="pickEmoji(this)">🌺</div>
+        </div>
+        <div style="margin-top:10px">
+          <div class="input-label" style="margin-bottom:6px">Cor de fundo</div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap" id="color-picker">
+            <div class="color-swatch selected" data-bg="#FAF0E6" data-spine="#C8822A" style="background:#FAF0E6" onclick="pickColor(this)"></div>
+            <div class="color-swatch" data-bg="#EEE0FF" data-spine="#7B5EA7" style="background:#EEE0FF" onclick="pickColor(this)"></div>
+            <div class="color-swatch" data-bg="#E0F0FF" data-spine="#3A7BBF" style="background:#E0F0FF" onclick="pickColor(this)"></div>
+            <div class="color-swatch" data-bg="#E0F5E8" data-spine="#3A6B4A" style="background:#E0F5E8" onclick="pickColor(this)"></div>
+            <div class="color-swatch" data-bg="#EEF2F5" data-spine="#5C7080" style="background:#EEF2F5" onclick="pickColor(this)"></div>
+            <div class="color-swatch" data-bg="#FFF0E0" data-spine="#B86A20" style="background:#FFF0E0" onclick="pickColor(this)"></div>
+            <div class="color-swatch" data-bg="#FFE8F0" data-spine="#C05070" style="background:#FFE8F0" onclick="pickColor(this)"></div>
+            <div class="color-swatch" data-bg="#E8F0FF" data-spine="#3050A0" style="background:#E8F0FF" onclick="pickColor(this)"></div>
+            <div class="color-swatch" data-bg="#2C2420" data-spine="#C8822A" style="background:#2C2420" onclick="pickColor(this)"></div>
+            <div class="color-swatch" data-bg="#1A2A1A" data-spine="#5A9A5A" style="background:#1A2A1A" onclick="pickColor(this)"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="btn-row" style="margin-top:8px">
+      <button class="btn btn-secondary" onclick="closeModal(&#39;add-modal&#39;)">Cancelar</button>
+      <button class="btn btn-primary" onclick="saveBook()">Guardar Livro</button>
+    </div>
+  </div>
+</div>
+
+<!-- DETAIL MODAL -->
+<div class="modal-bg" id="detail-modal">
+  <div class="modal" id="detail-content"></div>
+</div>
+
+<!-- STATS MODAL -->
+<div class="modal-bg" id="stats-modal">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <button class="modal-close" onclick="closeModal(&#39;stats-modal&#39;)"><i class="ti ti-x"></i></button>
+    <div class="modal-title">Estatísticas</div>
+    <div id="stats-content"></div>
+  </div>
+</div>
+
+<script>
+// ─── STATE ────────────────────────────────────────────────
+let books = [];
+let filterState = 'all';
+let sortOrder = 'date';
+let selectedEmoji = '📚';
+let selectedBg = '#FAF0E6';
+let selectedSpine = '#C8822A';
+let coverTab = 'photo';
+let pendingPhotos = [];
+let primaryPhotoId = null;
+let isbnPending = null;
+
+// Camera state
+let liveScanner = null;
+let scannerStream = null;
+let captureStream = null;
+let captureFacingMode = 'environment';
+let captureTarget = 'book'; // 'book' = for cover photo
+
+const STORAGE_KEY = 'minhabiblioteca_v4';
+
+function loadData(){try{books=JSON.parse(localStorage.getItem(STORAGE_KEY)||'[]')}catch(e){books=[]}}
+function saveData(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(books))}catch(e){showToast('⚠️ Sem espaço. Tenta usar menos fotos.')}}
+
+// ─── CLOCK ────────────────────────────────────────────────
+function updateClock(){const n=new Date();document.getElementById('clock').textContent=n.getHours()+':'+String(n.getMinutes()).padStart(2,'0')}
+setInterval(updateClock,10000);updateClock();
+
+// ─── TOAST ────────────────────────────────────────────────
+let toastTimer=null;
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.remove('show'),2800)}
+
+// ─── MODALS ───────────────────────────────────────────────
+function openModal(id){document.getElementById(id).classList.add('open')}
+function closeModal(id){document.getElementById(id).classList.remove('open')}
+document.querySelectorAll('.modal-bg').forEach(el=>el.addEventListener('click',e=>{if(e.target===el){if(el.id==='scanner-modal')closeScanner();else el.classList.remove('open')}}));
+
+// ─── LIGHTBOX ─────────────────────────────────────────────
+function openLightbox(src){document.getElementById('lightbox-img').src=src;document.getElementById('lightbox').classList.add('open')}
+function closeLightbox(){document.getElementById('lightbox').classList.remove('open')}
+
+// ─── TABS ─────────────────────────────────────────────────
+function switchTab(tab){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('tab-'+tab).classList.add('active');
+  if(tab==='scanner')openModal('scanner-modal');
+  if(tab==='stats'){buildStats();openModal('stats-modal')}
+}
+
+function setFilter(f){filterState=f;const l={all:'Coleção',reading:'A ler',done:'Lidos',unread:'Por ler'};document.getElementById('section-label').textContent=l[f];renderBooks()}
+function sortToggle(){sortOrder=sortOrder==='date'?'alpha':'date';showToast(sortOrder==='alpha'?'🔤 Por título':'🕐 Por data');renderBooks()}
+
+// ─── LIVE BARCODE SCANNER ─────────────────────────────────
+async function startLiveScanner(){
+  const wrap=document.getElementById('scanner-camera-wrap');
+  const btn=document.getElementById('start-scan-btn');
+  const video=document.getElementById('scanner-video');
+  const status=document.getElementById('scanner-status');
+
+  // If already running, stop
+  if(scannerStream){stopLiveScanner();return}
+
+  btn.innerHTML='<div class="spinner"></div> A iniciar câmara...';
+  btn.disabled=true;
+
+  try{
+    scannerStream=await navigator.mediaDevices.getUserMedia({video:{facingMode:'environment'},audio:false});
+    video.srcObject=scannerStream;
+    wrap.style.display='block';
+    btn.innerHTML='<i class="ti ti-camera-off"></i> Parar câmara';
+    btn.disabled=false;
+    btn.style.background='var(--red)';
+    status.textContent='Aponta o código de barras para a câmara...';
+
+    // ZXing barcode reader
+    const hints=new Map();
+    const formats=[
+      ZXing.BarcodeFormat.EAN_13,
+      ZXing.BarcodeFormat.EAN_8,
+      ZXing.BarcodeFormat.CODE_128,
+      ZXing.BarcodeFormat.UPC_A
+    ];
+    hints.set(ZXing.DecodeHintType.POSSIBLE_FORMATS,formats);
+    liveScanner=new ZXing.BrowserMultiFormatReader(hints);
+
+    liveScanner.decodeFromVideoElement(video,(result,err)=>{
+      if(result){
+        const code=result.getText();
+        status.textContent='✅ Código lido: '+code;
+        stopLiveScanner();
+        document.getElementById('isbn-input').value=code;
+        searchByISBN(code);
+      }
+    });
+
+  }catch(err){
+    btn.innerHTML='<i class="ti ti-camera"></i> Usar câmara para ler código de barras';
+    btn.disabled=false;
+    btn.style.background='var(--ink)';
+    if(err.name==='NotAllowedError')showToast('⚠️ Precisas de permitir o acesso à câmara');
+    else showToast('⚠️ Câmara não disponível');
+  }
+}
+
+function stopLiveScanner(){
+  if(liveScanner){try{liveScanner.reset()}catch(e){}liveScanner=null}
+  if(scannerStream){scannerStream.getTracks().forEach(t=>t.stop());scannerStream=null}
+  document.getElementById('scanner-camera-wrap').style.display='none';
+  const btn=document.getElementById('start-scan-btn');
+  btn.innerHTML='<i class="ti ti-camera"></i> Usar câmara para ler código de barras';
+  btn.disabled=false;
+  btn.style.background='var(--ink)';
+}
+
+function closeScanner(){stopLiveScanner();closeModal('scanner-modal');switchTab('library')}
+
+// ─── OPEN LIBRARY API SEARCH ──────────────────────────────
+async function searchByISBN(isbn){
+  isbn=(isbn||'').trim().replace(/[-\s]/g,'');
+  if(!isbn)return;
+  document.getElementById('isbn-input').value=isbn;
+
+  const res=document.getElementById('isbn-result');
+  res.innerHTML=`<div style="text-align:center;padding:20px;color:var(--ink3);font-size:13px">
+    <div class="spinner" style="margin-bottom:10px;display:block;margin-left:auto;margin-right:auto"></div>
+    A pesquisar na internet...
+  </div>`;
+
+  try{
+    // Open Library Books API
+    const url=`https://openlibrary.org/api/books?bibkeys=ISBN:${isbn}&format=json&jscmd=data`;
+    const resp=await fetch(url);
+    const data=await resp.json();
+    const key=`ISBN:${isbn}`;
+
+    if(data[key]){
+      const b=data[key];
+      const title=b.title||'Título desconhecido';
+      const authors=(b.authors||[]).map(a=>a.name).join(', ')||'Autor desconhecido';
+      const pages=b.number_of_pages||0;
+      const coverUrl=b.cover?b.cover.large||b.cover.medium||b.cover.small||null:null;
+      const subjects=(b.subjects||[]).slice(0,4).map(s=>s.name||s).join(', ');
+      const publishers=(b.publishers||[]).map(p=>p.name).join(', ');
+      const year=b.publish_date||'';
+      const desc=b.description?(typeof b.description==='string'?b.description:b.description.value)||'':'';
+      const excerpt=b.excerpts&&b.excerpts[0]?b.excerpts[0].text:'';
+      const descFinal=desc||excerpt||(subjects?`Categorias: ${subjects}`:'');
+
+      isbnPending={title,author:authors,pages,desc:descFinal.slice(0,400),coverUrl,year,publisher:publishers,subjects,emoji:'📚',bg:'#FAF0E6',spine:'#C8822A'};
+
+      res.innerHTML=`<div class="isbn-result-card">
+        ${coverUrl?`<img class="isbn-result-cover" src="${coverUrl}" alt="Capa" onerror="this.style.display='none'">`:`<div class="isbn-result-cover-placeholder">📚</div>`}
+        <div class="isbn-result-body">
+          <div class="isbn-result-title">${escHtml(title)}</div>
+          <div class="isbn-result-author">${escHtml(authors)}</div>
+          ${descFinal?`<div class="isbn-result-desc">${escHtml(descFinal.slice(0,300))}${descFinal.length>300?'...':''}</div>`:''}
+          <div class="isbn-result-chips">
+            ${pages?`<span class="isbn-chip">📄 ${pages} pág.</span>`:''}
+            ${year?`<span class="isbn-chip">📅 ${escHtml(year)}</span>`:''}
+            ${publishers?`<span class="isbn-chip">🏢 ${escHtml(publishers.slice(0,30))}</span>`:''}
+          </div>
+        </div>
+      </div>
+      <button class="btn btn-primary btn-full" onclick="addFromISBN()" style="margin-bottom:8px">
+        <i class="ti ti-plus"></i> Adicionar à Biblioteca
+      </button>
+      <button class="btn btn-secondary btn-full" onclick="editFromISBN()">
+        <i class="ti ti-edit"></i> Editar antes de adicionar
+      </button>`;
+
+    } else {
+      // Try search API as fallback
+      await searchByTitle(isbn);
+    }
+  }catch(err){
+    res.innerHTML=`<div style="background:var(--paper);border-radius:12px;padding:14px;text-align:center">
+      <div style="font-size:13px;color:var(--ink2);margin-bottom:4px">Sem ligação à internet ou ISBN não encontrado.</div>
+      <div style="font-size:11px;color:var(--ink3);margin-bottom:10px">Podes adicionar o livro manualmente.</div>
+      <button class="btn btn-secondary btn-full" onclick="closeScanner();setTimeout(openAdd,300)">Adicionar manualmente</button>
+    </div>`;
+  }
+}
+
+async function searchByTitle(query){
+  const res=document.getElementById('isbn-result');
+  try{
+    const url=`https://openlibrary.org/search.json?q=${encodeURIComponent(query)}&limit=1&fields=title,author_name,number_of_pages_median,cover_i,first_publish_year,subject`;
+    const resp=await fetch(url);
+    const data=await resp.json();
+    if(data.docs&&data.docs.length){
+      const d=data.docs[0];
+      const title=d.title||'';
+      const authors=(d.author_name||[]).join(', ');
+      const pages=d.number_of_pages_median||0;
+      const coverId=d.cover_i;
+      const coverUrl=coverId?`https://covers.openlibrary.org/b/id/${coverId}-L.jpg`:null;
+      const subjects=(d.subject||[]).slice(0,3).join(', ');
+      const year=d.first_publish_year?String(d.first_publish_year):'';
+      isbnPending={title,author:authors,pages,desc:subjects?`Categorias: ${subjects}`:'',coverUrl,year,emoji:'📚',bg:'#FAF0E6',spine:'#C8822A'};
+      res.innerHTML=`<div class="isbn-result-card">
+        ${coverUrl?`<img class="isbn-result-cover" src="${coverUrl}" alt="Capa" onerror="this.style.display='none'">`:`<div class="isbn-result-cover-placeholder">📚</div>`}
+        <div class="isbn-result-body">
+          <div class="isbn-result-title">${escHtml(title)}</div>
+          <div class="isbn-result-author">${escHtml(authors)}</div>
+          <div class="isbn-result-chips">
+            ${pages?`<span class="isbn-chip">📄 ${pages} pág.</span>`:''}
+            ${year?`<span class="isbn-chip">📅 ${year}</span>`:''}
+          </div>
+        </div>
+      </div>
+      <button class="btn btn-primary btn-full" onclick="addFromISBN()" style="margin-bottom:8px"><i class="ti ti-plus"></i> Adicionar à Biblioteca</button>
+      <button class="btn btn-secondary btn-full" onclick="editFromISBN()"><i class="ti ti-edit"></i> Editar antes de adicionar</button>`;
+    } else {
+      isbnPending=null;
+      res.innerHTML=`<div style="background:var(--paper);border-radius:12px;padding:14px;text-align:center">
+        <div style="font-size:13px;color:var(--ink2);margin-bottom:10px">Livro não encontrado na base de dados online.</div>
+        <button class="btn btn-secondary btn-full" onclick="closeScanner();setTimeout(openAdd,300)">Adicionar manualmente</button>
+      </div>`;
+    }
+  }catch(e){
+    isbnPending=null;
+    res.innerHTML=`<div style="background:var(--paper);border-radius:12px;padding:14px;text-align:center">
+      <button class="btn btn-secondary btn-full" onclick="closeScanner();setTimeout(openAdd,300)">Adicionar manualmente</button>
+    </div>`;
+  }
+}
+
+async function addFromISBN(){
+  if(!isbnPending)return;
+  const photos=[];
+  if(isbnPending.coverUrl){
+    try{
+      const dataUrl=await urlToDataUrl(isbnPending.coverUrl);
+      if(dataUrl)photos.push(dataUrl);
+    }catch(e){}
+  }
+  books.unshift({
+    id:Date.now(),title:isbnPending.title,author:isbnPending.author,
+    desc:isbnPending.desc||'',pages:isbnPending.pages||0,stock:1,
+    status:'unread',pageCurrent:0,photos,
+    emoji:isbnPending.emoji||'📚',bg:isbnPending.bg||'#FAF0E6',spine:isbnPending.spine||'#C8822A',
+    addedAt:Date.now()
+  });
+  saveData();renderBooks();closeScanner();
+  showToast('📚 '+isbnPending.title+' adicionado!');
+  isbnPending=null;
+}
+
+function editFromISBN(){
+  if(!isbnPending)return;
+  closeScanner();
+  setTimeout(async()=>{
+    openAdd();
+    document.getElementById('f-title').value=isbnPending.title||'';
+    document.getElementById('f-author').value=isbnPending.author||'';
+    document.getElementById('f-desc').value=isbnPending.desc||'';
+    document.getElementById('f-pages').value=isbnPending.pages||'';
+    if(isbnPending.coverUrl){
+      try{
+        const dataUrl=await urlToDataUrl(isbnPending.coverUrl);
+        if(dataUrl){pendingPhotos=[{id:'isbn_cover',dataUrl}];primaryPhotoId='isbn_cover';renderPhotoStrip();document.getElementById('photo-hint').style.display='block'}
+      }catch(e){}
+    }
+    isbnPending=null;
+  },350);
+}
+
+// Convert remote image URL to base64 dataUrl
+async function urlToDataUrl(url){
+  return new Promise((resolve,reject)=>{
+    const img=new Image();img.crossOrigin='anonymous';
+    img.onload=()=>{
+      const MAX=600;let w=img.width,h=img.height;
+      if(w>MAX||h>MAX){const r=Math.min(MAX/w,MAX/h);w=Math.round(w*r);h=Math.round(h*r)}
+      const c=document.createElement('canvas');c.width=w;c.height=h;
+      c.getContext('2d').drawImage(img,0,0,w,h);
+      resolve(c.toDataURL('image/jpeg',0.8));
+    };
+    img.onerror=()=>resolve(null);
+    img.src=url;
+  });
+}
+
+// ─── CAMERA PHOTO CAPTURE ────────────────────────────────
+async function openCameraCapture(){
+  const overlay=document.getElementById('camera-capture');
+  const video=document.getElementById('capture-video');
+  try{
+    captureStream=await navigator.mediaDevices.getUserMedia({video:{facingMode:captureFacingMode},audio:false});
+    video.srcObject=captureStream;
+    overlay.classList.add('open');
+  }catch(err){
+    if(err.name==='NotAllowedError')showToast('⚠️ Precisas de permitir o acesso à câmara');
+    else{
+      // Fallback: open file picker
+      document.getElementById('photo-input').click();
+    }
+  }
+}
+
+function closeCameraCapture(){
+  if(captureStream){captureStream.getTracks().forEach(t=>t.stop());captureStream=null}
+  document.getElementById('camera-capture').classList.remove('open');
+}
+
+function takePhoto(){
+  const video=document.getElementById('capture-video');
+  const canvas=document.getElementById('capture-canvas');
+  canvas.width=video.videoWidth;canvas.height=video.videoHeight;
+  canvas.getContext('2d').drawImage(video,0,0);
+  const MAX=800;let w=canvas.width,h=canvas.height;
+  if(w>MAX||h>MAX){const r=Math.min(MAX/w,MAX/h);w=Math.round(w*r);h=Math.round(h*r)}
+  const c2=document.createElement('canvas');c2.width=w;c2.height=h;
+  c2.getContext('2d').drawImage(canvas,0,0,w,h);
+  const dataUrl=c2.toDataURL('image/jpeg',0.85);
+  const pid='cam_'+Date.now();
+  pendingPhotos.push({id:pid,dataUrl});
+  if(!primaryPhotoId)primaryPhotoId=pid;
+  renderPhotoStrip();
+  document.getElementById('photo-hint').style.display='block';
+  closeCameraCapture();
+  showToast('📷 Foto adicionada!');
+}
+
+async function flipCamera(){
+  captureFacingMode=captureFacingMode==='environment'?'user':'environment';
+  if(captureStream){captureStream.getTracks().forEach(t=>t.stop())}
+  try{
+    captureStream=await navigator.mediaDevices.getUserMedia({video:{facingMode:captureFacingMode},audio:false});
+    document.getElementById('capture-video').srcObject=captureStream;
+  }catch(e){showToast('⚠️ Não foi possível mudar a câmara')}
+}
+
+// ─── PHOTO GALLERY HANDLING ──────────────────────────────
+function handlePhotoUpload(e){
+  const files=Array.from(e.target.files);if(!files.length)return;
+  files.forEach(file=>{
+    if(!file.type.startsWith('image/'))return;
+    const reader=new FileReader();
+    reader.onload=ev=>{
+      const img=new Image();
+      img.onload=()=>{
+        const MAX=800;let w=img.width,h=img.height;
+        if(w>MAX||h>MAX){const r=Math.min(MAX/w,MAX/h);w=Math.round(w*r);h=Math.round(h*r)}
+        const canvas=document.createElement('canvas');canvas.width=w;canvas.height=h;
+        canvas.getContext('2d').drawImage(img,0,0,w,h);
+        const dataUrl=canvas.toDataURL('image/jpeg',0.82);
+        const pid='p'+Date.now()+Math.random().toString(36).slice(2);
+        pendingPhotos.push({id:pid,dataUrl});
+        if(!primaryPhotoId)primaryPhotoId=pid;
+        renderPhotoStrip();
+        document.getElementById('photo-hint').style.display='block';
+      };
+      img.src=ev.target.result;
+    };
+    reader.readAsDataURL(file);
+  });
+  e.target.value='';
+}
+
+function renderPhotoStrip(){
+  const strip=document.getElementById('photo-strip');
+  if(!pendingPhotos.length){strip.innerHTML='';return}
+  strip.innerHTML=pendingPhotos.map(p=>`
+    <div class="photo-thumb${p.id===primaryPhotoId?' selected':''}" onclick="setPrimary('${p.id}')">
+      <img src="${p.dataUrl}" alt="foto"/>
+      ${p.id===primaryPhotoId?'<div class="primary-badge">Capa</div>':''}
+      <div class="remove-photo" onclick="removePhoto(event,'${p.id}')"><i class="ti ti-x" style="font-size:9px"></i></div>
+    </div>`).join('');
+}
+
+function setPrimary(pid){
+  primaryPhotoId=pid;
+  const idx=pendingPhotos.findIndex(p=>p.id===pid);
+  if(idx>0){const[p]=pendingPhotos.splice(idx,1);pendingPhotos.unshift(p)}
+  renderPhotoStrip();
+}
+
+function removePhoto(e,pid){
+  e.stopPropagation();
+  pendingPhotos=pendingPhotos.filter(p=>p.id!==pid);
+  if(primaryPhotoId===pid)primaryPhotoId=pendingPhotos.length?pendingPhotos[0].id:null;
+  renderPhotoStrip();
+  if(!pendingPhotos.length)document.getElementById('photo-hint').style.display='none';
+}
+
+function switchCoverTab(tab){
+  coverTab=tab;
+  document.getElementById('tab-photo').classList.toggle('active',tab==='photo');
+  document.getElementById('tab-emoji').classList.toggle('active',tab==='emoji');
+  document.getElementById('cover-photo-section').style.display=tab==='photo'?'block':'none';
+  document.getElementById('cover-emoji-section').style.display=tab==='emoji'?'block':'none';
+}
+
+// ─── RENDER ───────────────────────────────────────────────
+function renderBooks(){
+  updateStats();
+  const list=document.getElementById('book-list');
+  let filtered=filterState==='all'?[...books]:books.filter(b=>b.status===filterState);
+  if(sortOrder==='alpha')filtered.sort((a,b)=>a.title.localeCompare(b.title,'pt'));
+  if(!filtered.length){
+    list.innerHTML=`<div class="empty-state"><i class="ti ti-books"></i><p>${filterState==='all'?'A tua biblioteca está vazia.<br>Adiciona o teu primeiro livro!':'Sem livros nesta categoria.'}</p></div>`;
+    return;
+  }
+  list.innerHTML=filtered.map(b=>{
+    const cur=b.status==='done'?(b.pages||0):(b.pageCurrent||0);
+    const pct=b.pages?Math.round(cur/b.pages*100):0;
+    const lbl={reading:'A ler',done:'Lido',unread:'Por ler'}[b.status];
+    const hasPh=b.photos&&b.photos.length;
+    return `<div class="book-card" onclick="openDetail(${b.id})">
+      <div class="book-cover" style="${hasPh?'':` background:${b.bg||'#FAF0E6'}`}">
+        ${hasPh
+          ?`<img src="${b.photos[0]}" alt="Capa" style="width:100%;height:100%;object-fit:cover;border-radius:8px"/>`
+          :`<div class="book-cover-spine" style="background:${b.spine||'#C8822A'}"></div>${b.emoji||'📚'}`}
+      </div>
+      <div class="book-info">
+        <div>
+          <div class="book-title">${escHtml(b.title)}</div>
+          <div class="book-author">${escHtml(b.author||'Autor desconhecido')}</div>
+          <span class="book-status status-${b.status}">${lbl}</span>
+          ${b.stock>1?`<span style="font-size:10px;color:var(--ink3);margin-left:6px">× ${b.stock}</span>`:''}
+          ${hasPh&&b.photos.length>1?`<span style="font-size:10px;color:var(--ink3);margin-left:4px"><i class="ti ti-photo" style="font-size:11px;vertical-align:-1px"></i> ${b.photos.length}</span>`:''}
+        </div>
+        <div>
+          ${b.status!=='unread'
+            ?`<div class="progress-wrap"><div class="progress-bar"><div class="progress-fill ${b.status}" style="width:${pct}%"></div></div><div class="progress-label">${pct}% · pág. ${cur}${b.pages?' / '+b.pages:''}</div></div>`
+            :(b.pages?`<div class="book-pages">${b.pages} pág.</div>`:'')}
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function updateStats(){
+  const all=books.length,reading=books.filter(b=>b.status==='reading').length,
+        done=books.filter(b=>b.status==='done').length,unread=books.filter(b=>b.status==='unread').length;
+  document.getElementById('cnt-all').textContent=all;
+  document.getElementById('cnt-reading').textContent=reading;
+  document.getElementById('cnt-done').textContent=done;
+  document.getElementById('cnt-unread').textContent=unread;
+  document.getElementById('header-sub').textContent=all===1?'1 livro na coleção':`${all} livros na coleção`;
+}
+
+// ─── DETAIL ───────────────────────────────────────────────
+function openDetail(id){
+  const b=books.find(x=>x.id===id);if(!b)return;
+  const cur=b.status==='done'?(b.pages||0):(b.pageCurrent||0);
+  const pct=b.pages?Math.round(cur/b.pages*100):0;
+  const lbl={reading:'A ler',done:'Lido',unread:'Por ler'}[b.status];
+  const hasPh=b.photos&&b.photos.length;
+  const nextBtn=b.status==='unread'?'📖 Começar a ler':b.status==='reading'?'✅ Marcar como lido':'🔄 Ler novamente';
+  document.getElementById('detail-content').innerHTML=`
+    <div class="modal-handle"></div>
+    <button class="modal-close" onclick="closeModal('detail-modal')"><i class="ti ti-x"></i></button>
+    <div class="detail-header">
+      <div class="detail-cover" style="${hasPh?'':` background:${b.bg||'#FAF0E6'}`}">
+        ${hasPh
+          ?`<img src="${b.photos[0]}" alt="Capa"/>`
+          :`<div class="detail-spine" style="background:${b.spine||'#C8822A'}"></div><span style="font-size:38px">${b.emoji||'📚'}</span>`}
+      </div>
+      <div style="flex:1;min-width:0">
+        <div class="detail-title">${escHtml(b.title)}</div>
+        <div class="detail-author">${escHtml(b.author||'Autor desconhecido')}</div>
+        <div class="detail-meta">
+          <span class="book-status status-${b.status}">${lbl}</span>
+          ${b.pages?`<span style="font-size:11px;color:var(--ink3)">${b.pages} pág.</span>`:''}
+          ${b.stock>1?`<span style="font-size:11px;color:var(--ink3)">× ${b.stock}</span>`:''}
+        </div>
+      </div>
+    </div>
+    ${hasPh&&b.photos.length>1?`
+    <div style="margin-bottom:4px">
+      <div style="font-size:12px;color:var(--ink3);margin-bottom:8px"><i class="ti ti-photo" style="font-size:13px;vertical-align:-2px"></i> ${b.photos.length} fotos · toca para ampliar</div>
+      <div class="photo-gallery">
+        ${b.photos.map((src,i)=>`<img class="gallery-img${i===0?' main-cover':''}" src="${src}" onclick="openLightbox('${src}')" alt=""/>`).join('')}
+      </div>
+    </div>`:''}
+    ${b.desc?`<div class="detail-desc">${escHtml(b.desc)}</div>`:''}
+    ${b.status!=='unread'?`
+    <div style="margin-bottom:16px">
+      <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:7px;color:var(--ink2)">
+        <span>Progresso</span><span style="font-weight:500;color:var(--amber)" id="d-pct">${pct}%</span>
+      </div>
+      <div class="progress-bar" style="height:8px;margin-bottom:10px">
+        <div class="progress-fill ${b.status}" id="d-bar" style="width:${pct}%"></div>
+      </div>
+      ${b.pages?`<input type="range" min="0" max="${b.pages}" value="${cur}" step="1" oninput="liveProgress(this.value,${b.id},${b.pages})"/>
+      <div style="font-size:11px;color:var(--ink3);margin-top:4px" id="d-page-lbl">Página ${cur} de ${b.pages}</div>`:''}
+    </div>`:''}
+    <button class="btn btn-primary btn-full" style="margin-bottom:10px" onclick="cycleStatus(${b.id})">${nextBtn}</button>
+    <div class="btn-row">
+      <button class="btn btn-secondary" onclick="openEdit(${b.id})"><i class="ti ti-edit"></i> Editar</button>
+      <button class="btn btn-danger" onclick="confirmDelete(${b.id})"><i class="ti ti-trash"></i> Remover</button>
+    </div>`;
+  openModal('detail-modal');
+}
+
+function liveProgress(val,id,maxPg){
+  const pct=Math.round(parseInt(val)/maxPg*100);
+  document.getElementById('d-pct').textContent=pct+'%';
+  document.getElementById('d-bar').style.width=pct+'%';
+  document.getElementById('d-page-lbl').textContent=`Página ${val} de ${maxPg}`;
+  const b=books.find(x=>x.id===id);if(b){b.pageCurrent=parseInt(val);saveData();renderBooks()}
+}
+
+function cycleStatus(id){
+  const b=books.find(x=>x.id===id);if(!b)return;
+  const next={unread:'reading',reading:'done',done:'unread'};b.status=next[b.status];
+  if(b.status==='done')b.pageCurrent=b.pages||0;
+  if(b.status==='unread')b.pageCurrent=0;
+  saveData();renderBooks();closeModal('detail-modal');
+  showToast({reading:'📖 Boa leitura!',done:'🎉 Livro concluído!',unread:'🔄 Movido para por ler'}[b.status]);
+}
+
+function confirmDelete(id){
+  const b=books.find(x=>x.id===id);if(!b)return;
+  if(confirm(`Remover "${b.title}"?`)){books=books.filter(x=>x.id!==id);saveData();renderBooks();closeModal('detail-modal');showToast('🗑️ Removido')}
+}
+
+// ─── ADD / EDIT ───────────────────────────────────────────
+function openAdd(){
+  document.getElementById('edit-id').value='';
+  document.getElementById('add-modal-title').textContent='Adicionar Livro';
+  ['f-title','f-author','f-desc','f-pages','f-page-current'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('f-stock').value='1';
+  document.getElementById('f-status').value='unread';
+  document.getElementById('progress-row').style.display='none';
+  pendingPhotos=[];primaryPhotoId=null;renderPhotoStrip();
+  document.getElementById('photo-hint').style.display='none';
+  selectedEmoji='📚';selectedBg='#FAF0E6';selectedSpine='#C8822A';
+  switchCoverTab('photo');resetPickers();
+  openModal('add-modal');
+}
+
+function openEdit(id){
+  const b=books.find(x=>x.id===id);if(!b)return;
+  closeModal('detail-modal');
+  setTimeout(()=>{
+    document.getElementById('edit-id').value=b.id;
+    document.getElementById('add-modal-title').textContent='Editar Livro';
+    document.getElementById('f-title').value=b.title;
+    document.getElementById('f-author').value=b.author||'';
+    document.getElementById('f-desc').value=b.desc||'';
+    document.getElementById('f-pages').value=b.pages||'';
+    document.getElementById('f-stock').value=b.stock||1;
+    document.getElementById('f-status').value=b.status;
+    document.getElementById('f-page-current').value=b.pageCurrent||'';
+    toggleProgressRow();
+    pendingPhotos=(b.photos||[]).map((dataUrl,i)=>({id:'ex_'+i,dataUrl}));
+    primaryPhotoId=pendingPhotos.length?pendingPhotos[0].id:null;
+    renderPhotoStrip();
+    if(pendingPhotos.length)document.getElementById('photo-hint').style.display='block';
+    selectedEmoji=b.emoji||'📚';selectedBg=b.bg||'#FAF0E6';selectedSpine=b.spine||'#C8822A';
+    switchCoverTab(b.photos&&b.photos.length?'photo':'emoji');
+    resetPickers(b.emoji,b.bg);
+    openModal('add-modal');
+  },200);
+}
+
+function toggleProgressRow(){document.getElementById('progress-row').style.display=document.getElementById('f-status').value==='reading'?'block':'none'}
+function pickEmoji(el){document.querySelectorAll('.cover-opt').forEach(x=>x.classList.remove('selected'));el.classList.add('selected');selectedEmoji=el.dataset.emoji}
+function pickColor(el){document.querySelectorAll('.color-swatch').forEach(x=>x.classList.remove('selected'));el.classList.add('selected');selectedBg=el.dataset.bg;selectedSpine=el.dataset.spine}
+function resetPickers(emoji,bg){
+  document.querySelectorAll('.cover-opt').forEach(el=>el.classList.toggle('selected',el.dataset.emoji===(emoji||'📚')));
+  document.querySelectorAll('.color-swatch').forEach(el=>el.classList.toggle('selected',el.dataset.bg===(bg||'#FAF0E6')));
+}
+
+function saveBook(){
+  const title=document.getElementById('f-title').value.trim();
+  if(!title){showToast('⚠️ O título é obrigatório');return}
+  const editId=document.getElementById('edit-id').value;
+  const status=document.getElementById('f-status').value;
+  const pages=parseInt(document.getElementById('f-pages').value)||0;
+  let pageCurrent=parseInt(document.getElementById('f-page-current').value)||0;
+  if(status==='done')pageCurrent=pages;
+  if(status==='unread')pageCurrent=0;
+  const book={
+    id:editId?parseInt(editId):Date.now(),title,
+    author:document.getElementById('f-author').value.trim(),
+    desc:document.getElementById('f-desc').value.trim(),
+    pages,stock:parseInt(document.getElementById('f-stock').value)||1,
+    status,pageCurrent,photos:pendingPhotos.map(p=>p.dataUrl),
+    emoji:selectedEmoji,bg:selectedBg,spine:selectedSpine,
+    addedAt:editId?(books.find(x=>x.id===parseInt(editId))?.addedAt||Date.now()):Date.now()
+  };
+  if(editId){const idx=books.findIndex(x=>x.id===parseInt(editId));if(idx!==-1)books[idx]=book;else books.unshift(book)}
+  else books.unshift(book);
+  saveData();renderBooks();closeModal('add-modal');
+  showToast(editId?'✏️ Actualizado!':'📚 Adicionado!');
+}
+
+// ─── STATS ────────────────────────────────────────────────
+function buildStats(){
+  const total=books.length,done=books.filter(b=>b.status==='done').length,
+        reading=books.filter(b=>b.status==='reading').length,unread=books.filter(b=>b.status==='unread').length;
+  const totalPages=books.reduce((s,b)=>s+(b.pages||0),0);
+  const readPages=books.filter(b=>b.status==='done').reduce((s,b)=>s+(b.pages||0),0);
+  const inProg=books.filter(b=>b.status==='reading').reduce((s,b)=>s+(b.pageCurrent||0),0);
+  const pct=total?Math.round(done/total*100):0;
+  document.getElementById('stats-content').innerHTML=`
+    <div class="stats-grid">
+      <div class="stat-card total"><div class="stat-card-num">${total}</div><div class="stat-card-lbl">Total</div></div>
+      <div class="stat-card read"><div class="stat-card-num">${done}</div><div class="stat-card-lbl">Lidos</div></div>
+      <div class="stat-card inprogress"><div class="stat-card-num">${reading}</div><div class="stat-card-lbl">A ler</div></div>
+      <div class="stat-card total"><div class="stat-card-num">${unread}</div><div class="stat-card-lbl">Por ler</div></div>
+    </div>
+    <div style="margin-bottom:16px">
+      <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px;color:var(--ink2)">
+        <span>Taxa de conclusão</span><span style="font-weight:500;color:var(--amber)">${pct}%</span>
+      </div>
+      <div class="progress-bar" style="height:10px"><div class="progress-fill done" style="width:${pct}%;background:var(--amber)"></div></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px">
+      <div style="background:var(--paper);border-radius:14px;padding:14px;text-align:center">
+        <div style="font-size:22px;font-weight:500;color:var(--ink)">${totalPages.toLocaleString('pt-PT')}</div>
+        <div style="font-size:11px;color:var(--ink3)">Páginas total</div>
+      </div>
+      <div style="background:var(--green-light);border-radius:14px;padding:14px;text-align:center">
+        <div style="font-size:22px;font-weight:500;color:var(--green)">${(readPages+inProg).toLocaleString('pt-PT')}</div>
+        <div style="font-size:11px;color:var(--green)">Páginas lidas</div>
+      </div>
+    </div>
+    ${reading>0?`<div style="background:var(--amber-light);border-radius:14px;padding:14px">
+      <div style="font-size:12px;color:var(--amber);font-weight:500;margin-bottom:8px">A ler agora</div>
+      ${books.filter(b=>b.status==='reading').map(b=>{const p=b.pages?Math.round((b.pageCurrent||0)/b.pages*100):0;
+        return `<div style="margin-bottom:8px"><div style="font-size:13px;color:var(--ink2)">${escHtml(b.title)}</div>
+        <div class="progress-bar" style="height:4px;margin-top:4px"><div class="progress-fill reading" style="width:${p}%"></div></div>
+        <div style="font-size:10px;color:var(--ink3);margin-top:2px">${p}%</div></div>`;}).join('')}
+    </div>`:''}`;
+}
+
+// ─── UTILS ────────────────────────────────────────────────
+function escHtml(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+
+// ─── INIT ─────────────────────────────────────────────────
+loadData();
+if(!books.length){
+  books=[
+    {id:1,title:'O Nome da Rosa',author:'Umberto Eco',desc:'Um thriller medieval num mosteiro italiano, onde um frade franciscano investiga mortes misteriosas ligadas a um livro proibido de Aristóteles.',pages:502,pageCurrent:320,stock:1,status:'reading',photos:[],emoji:'🔮',bg:'#EEE0FF',spine:'#7B5EA7',addedAt:Date.now()-86400000*5},
+    {id:2,title:'Ensaio sobre a Cegueira',author:'José Saramago',desc:'Uma epidemia de cegueira branca devasta a sociedade. Nobel da Literatura.',pages:310,pageCurrent:310,stock:2,status:'done',photos:[],emoji:'🌊',bg:'#E0F0FF',spine:'#3A7BBF',addedAt:Date.now()-86400000*10},
+    {id:3,title:'Cem Anos de Solidão',author:'Gabriel García Márquez',desc:'A saga épica da família Buendía ao longo de sete gerações na mítica cidade de Macondo.',pages:448,pageCurrent:0,stock:1,status:'unread',photos:[],emoji:'🌿',bg:'#E0F5E8',spine:'#3A6B4A',addedAt:Date.now()-86400000*2},
+  ];
+  saveData();
+}
+renderBooks();
+</script>
+
+
+</body></html>
